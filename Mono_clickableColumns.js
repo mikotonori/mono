@@ -21,6 +21,12 @@ Anbefalt CSS for kolonne for å tydelig vise at denne er klikkbar og fungerer so
   cursor: pointer;
 }
 
+Og denne for at dette skal gjelde for alle elementer i kolonnen:
+
+.cc_clickable * {
+  cursor: pointer;
+}
+
 Hvis man kun vil bruke kolonnen som en lenke, og ikke ha en synlig lenke, kan man bruke denne CSS-koden for å fjerne alle (faktiske) lenker uten å miste lenke-funksjonalitet:
 
 .cc_clickable a:not([onclick="return false"]) {
