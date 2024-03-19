@@ -3,10 +3,10 @@ Lar deg bruke en kolonne med klassen "cc_clickable" som "knapp". Tar også hensy
 
 (1) Hvis du klikker på kolonnen, vil den første lenken* som fungerer som en lenke, aktiveres
 
-(2) Kolonnen får aria-label som blir forsøkt tatt fra linken i denne prioritetsordenen:
+(2) Kolonnen får aria-label som blir forsøkt tatt fra lenken i denne prioritetsordenen:
     1. title-attribute'en
-    2. teksten i lenka (f.eks. "Kontakt oss")
-    Hvis disse ikke eksisterer vil den bli satt til 'Åpne linken i kolonnen'.
+    2. teksten i lenken (f.eks. "Kontakt oss")
+    Hvis disse ikke eksisterer vil den bli satt til 'Åpne lenken i kolonnen'.
 
 (3) Kolonnens role-attribute blir satt til "button"
 
@@ -21,10 +21,10 @@ Anbefalt CSS for kolonne for å tydelig vise at denne er klikkbar og fungerer so
   cursor: pointer;
 }
 
-Hvis man kun vil bruke kolonnen som en link, og ikke ha en synlig link, kan man bruke denne CSS-koden for å fjerne linken uten å miste link-funksjonalitet:
+Hvis man kun vil bruke kolonnen som en lenke, og ikke ha en synlig lenke, kan man bruke denne CSS-koden for å fjerne alle (faktiske) lenker uten å miste lenke-funksjonalitet:
 
-.cc_clickable a {
-  display: none;
+.cc_clickable a:not([onclick="return false"]) {
+	display: none;
 }
 
 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
     } else if (linkToClick.textContent !== '') {
       linkLabel = linkToClick.textContent;
     } else {
-      linkLabel = 'Åpne linken i kolonnen';
+      linkLabel = 'Åpne lenken i kolonnen';
     }
 
     clickable.setAttribute('aria-label', linkLabel);
