@@ -3,7 +3,7 @@ Lar deg bruke en kolonne med klassen "cc_clickable" som "knapp". Tar også hensy
 
 (1) Hvis du klikker på kolonnen, vil den første lenken* som fungerer som en lenke, aktiveres
 
-(2) Kolonnen får aria-label som blir forsøkt tatt fra lenken i denne prioritetsordenen:
+(2) Kolonnen får aria-label og title som blir forsøkt tatt fra lenken i denne prioritetsordenen:
     1. title-attribute'en
     2. teksten i lenken (f.eks. "Kontakt oss")
     Hvis disse ikke eksisterer vil den bli satt til 'Åpne lenken i kolonnen'.
@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
     }
 
     clickable.setAttribute('aria-label', linkLabel);
+    clickable.setAttribute('title', linkLabel);
 
 
     //----------------------------------------------------------(3)
