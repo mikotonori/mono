@@ -5,6 +5,7 @@ CSS for å stille på scrolleknappens ikon:
 	color: #101010 !important;
 }
 */
+// <script></script> skal omkranse koden hvis brukt i HTML
 
 document.addEventListener('DOMContentLoaded', function(e) {
   const scrollIcon = document.querySelector('.scrollIcon');
