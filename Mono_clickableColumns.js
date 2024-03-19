@@ -26,6 +26,9 @@ Hvis man kun vil bruke kolonnen som en link, og ikke ha en synlig link, kan man 
 .cc_clickable a {
   display: none;
 }
+
+
+OBS: <script></script> skal omkranse koden hvis brukt i HTML
 */
 
 document.addEventListener('DOMContentLoaded', function(e) {
