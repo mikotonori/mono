@@ -17,13 +17,7 @@ Lar deg bruke en kolonne med klassen "cc_clickable" som "knapp". Tar også hensy
 
 Anbefalt CSS for kolonne for å tydelig vise at denne er klikkbar og fungerer som en link/knapp:
 
-.cc_clickable {
-  cursor: pointer;
-}
-
-Og denne for at dette skal gjelde for alle elementer i kolonnen:
-
-.cc_clickable * {
+.cc_clickable, .cc_clickable * {
   cursor: pointer;
 }
 
