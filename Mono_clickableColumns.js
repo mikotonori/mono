@@ -21,7 +21,7 @@ Anbefalt CSS for kolonne for å tydelig vise at denne er klikkbar og fungerer so
   cursor: pointer;
 }
 
-Hvis man kun vil bruke kolonnen som en lenke, og ikke ha en synlig lenke, kan man bruke denne CSS-koden for å fjerne alle (faktiske) lenker uten å miste lenke-funksjonalitet:
+Hvis man kun vil bruke kolonnen som en lenke, og ikke ha en synlig lenke, kan man bruke denne CSS-koden for å visuelt fjerne alle (faktiske) lenker uten å miste lenke-funksjonalitet:
 
 .cc_clickable a:not([onclick="return false"]) {
 	display: none;
@@ -29,6 +29,8 @@ Hvis man kun vil bruke kolonnen som en lenke, og ikke ha en synlig lenke, kan ma
 
 
 OBS: <script></script> skal omkranse koden hvis brukt i HTML
+
+P.S. Når det blir nevnt "faktiske" lenker, så er dette ment å ekskludere "wrappers", altså <a>-tags rundt bilder, f.eks. (disse kan imidlertid selvfølgelig være réelle lenker også, men da går de under "faktiske lenker").
 */
 
 document.addEventListener('DOMContentLoaded', function(e) {
