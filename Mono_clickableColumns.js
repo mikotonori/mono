@@ -10,7 +10,7 @@ Lar deg bruke en kolonne med klassen "cc_clickable" som "knapp". Tar også hensy
 
 (3) Kolonnens role-attribute blir satt til "button"
 
-(4) Kolonnens tabindex-attribute blir satt til 0, slik at man kan nå kolonnen med tab, og lar deg klikke på kolonnen med Enter/Space når den er fokusert
+(4) Kolonnens tabindex-attribute blir satt til 0, slik at man kan nå kolonnen med tab. Har også lagt til funksjonalitet som lar deg klikke på kolonnen med Enter/Space når den er fokusert
 
 
 * - <a> -- dvs. også knapper, hvis disse egentlig er <a>-elementer
