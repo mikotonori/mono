@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
     
     clickable.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-            clickable.click();
+  	e.preventDefault();
+    	clickable.click();
       }
     });
   });
