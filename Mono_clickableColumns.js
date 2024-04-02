@@ -27,6 +27,7 @@ Hvis man kun vil bruke kolonnen som en lenke, og ikke ha en synlig lenke, kan ma
 	display: none;
 }
 
+(*) Setter aria-hidden="true" på lenken hvis CSS rett over blir brukt, eller når faktiske lenker i kolonner med .cc_clickable har display satt til 'none'.
 
 OBS: <script></script> skal omkranse koden hvis brukt i HTML
 
@@ -65,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
     }
 
     clickable.setAttribute('aria-label', linkLabel);
-    clickable.setAttribute('title', linkLabel);
 
 
     //----------------------------------------------------------(3)
@@ -74,11 +74,18 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     //----------------------------------------------------------(4)
     clickable.setAttribute('tabindex', '0');
-    
+
     clickable.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' || e.key === ' ') {
-  	e.preventDefault();
-    	clickable.click();
+          e.preventDefault();
+            clickable.click();
+      }
+    });
+
+    //----------------------------------------------------------(*)
+    clickable.querySelectorAll('a:not([onclick="return false"])').forEach(link => {
+      if (window.getComputedStyle(link).display === 'none') {
+        link.setAttribute('aria-hidden', 'true');
       }
     });
   });
