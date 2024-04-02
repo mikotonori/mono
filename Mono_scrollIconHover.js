@@ -19,6 +19,8 @@ CSS for å stille på scrolleknappen og dens pilikon når de fokuseres:
 .scrollIconFocus span::before {
 	color: #101010 !important;
 }
+
+OBS: <script></script> skal omkranse koden hvis brukt i HTML
 */
 
 document.addEventListener('DOMContentLoaded', function(e) {
