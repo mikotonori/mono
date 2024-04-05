@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function (e) {
   const gridConfig = {
-    direction: 'right', // Need to lose this
     parentColumnSize: 6, // 1 til 12
     gridColumnCount: null,
     gridColumnMinWidth: '100px',
@@ -10,10 +9,37 @@ document.addEventListener('DOMContentLoaded', function (e) {
     parentColumnPadding: 0,
   };
 
-  createGridOnSide(gridConfig);
+  const getRowsWithGrid = elementOnSide => {
+    return elementOnSide.closest('.row');
+  };
+
+  const elementsOnSide =
+    this.querySelectorAll('.cc_grid-to-right') +
+    this.querySelectorAll('.cc_grid-to-left');
+
+  const rows = [];
+  elementsOnSide.forEach(el => {
+    const gridRow = getRowsWithGrid(el);
+
+    if (!rows.includes(gridRow)) {
+      rows.push(gridRow);
+    }
+  });
+
+  if (rows.length === 0) return;
+
+  rows.forEach(row => {
+    createGridOnSide(gridConfig, row);
+  });
 });
 
-function createGridOnSide(config) {
+/*
+1. Get columns and put them in separate arrays.
+
+2. 
+*/
+
+function createGridOnSide(config, row) {
   document
     .querySelectorAll(`.cc_grid-to-${config.direction}`)
     .forEach(elementOnSide => {
