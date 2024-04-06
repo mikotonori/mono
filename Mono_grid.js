@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function (e) {
+document.addEventListener('DOMContentLoaded', function () {
   const gridConfig = {
     parentColumnSize: 6, // 1 til 12
     gridColumnCount: null,
