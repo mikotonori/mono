@@ -99,7 +99,7 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
 
   const styles = /*html*/ `
     <style id="custom_auto-grid">
-      .cc_auto-grid {
+    .cc_auto-grid {
       max-height: 100%;
       display: grid;
       grid-template-columns: repeat(${
