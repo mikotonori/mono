@@ -52,6 +52,11 @@ if (live)
       let rightGridHead;
       cols.forEach(col => {
         if (col.classList.contains('cc_grid-to-right')) {
+          if (side === 'right') {
+            createGridOnSide(gridConfig, side, gridCols, rightGridHead);
+            gridCols.length = 0;
+          }
+
           rightGridHead = col;
           side = 'right';
           return;
@@ -80,7 +85,10 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
   const HTMLPlacement = {
     right: 'afterend',
     left: 'beforebegin',
+    first: 'afterbegin',
   };
+
+  let placement = HTMLPlacement[sideOfGrid];
 
   let gridColumnsOuterHTML = '';
   gridColumns.forEach(gridCol => {
@@ -91,16 +99,29 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
     gridCol.remove();
   });
 
-  const elementToSideHTML = elementToSide.outerHTML;
+  const insertionPoint =
+    elementToSide.previousElementSibling ?? elementToSide.closest('.row');
+  if (insertionPoint.classList.contains('row')) {
+    placement = HTMLPlacement['first'];
+  }
 
   const HTML = /*html*/ `
-    <div class="col cc_auto-grid col-sm-${config.parentColumnSize}">${gridColumnsOuterHTML}</div>
+    <div class="cc_wrapper--auto-grid">
+      ${elementToSide.outerHTML}
+      <div class="col cc_auto-grid col-lg-${config.parentColumnSize}">${gridColumnsOuterHTML}</div>
+    </div>
   `;
 
   const styles = /*html*/ `
     <style id="custom_auto-grid">
+    .cc_wrapper--auto-grid {
+      display: flex;
+      justify-content: flex-start;
+      height: 40rem;
+    }
+
     .cc_auto-grid {
-      max-height: 100%;
+      height: 100%;
       display: grid;
       grid-template-columns: repeat(${
         config.gridColumnCount ?? 'auto-fill'
@@ -109,27 +130,41 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
       column-gap: ${config.columnGap};
       row-gap: ${config.rowGap};
       padding: ${config.parentColumnPadding};
+	  
+	  /*flex-grow: 1;*/
     }
+	
+	.cc_grid-to-right, .cc_grid-to-left {
+		height: 100% !important;
+		
+		flex-grow: 1;
+	}
+	
+	.cc_grid-to-right img, .cc_grid-to-left img {
+		height: 100% !important;
+		width: 100% !important;
+		object-fit: cover !important;
+	}
+	
+	.cc_grid-to-right a, .cc_grid-to-left a {
+		height: 100% !important;
+		display: block;
+	}
 
     @media screen and (max-width: 1199px) {
     }
 
     @media screen and (max-width: 767px) {
-	  .cc_grid-to-left, .cc_grid-to-right {
-	  	height: 20% !important;
-		overflow: hidden !important;
+	  .cc_wrapper--auto-grid {
+	    flex-direction: column;
+		height: 100%;
 	  }
-	
-	  .cc_grid-to-left img, .cc_grid-to-right img {
-	  	object-fit: cover !important;
-		width: 100% !important;
-	  }
-	
-	  .cc_auto-grid {
-	  	grid-template-columns: 1fr;
-		grid-template-rows: repeat(${gridColumns.length}, 1fr);
-		width: 100% !important;
-	  }
+    
+      .cc_auto-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(${gridColumns.length}, 1fr);
+        width: 100% !important;
+      }
     }
     </style>
   `;
@@ -137,7 +172,8 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
   if (config.gridsCreated === 0) {
     document.querySelector('head').insertAdjacentHTML('beforeend', styles);
   }
-  elementToSide.insertAdjacentHTML(HTMLPlacement[sideOfGrid], HTML);
+  elementToSide.remove();
+  insertionPoint.insertAdjacentHTML(placement, HTML);
 
   config.gridsCreated++;
 }
