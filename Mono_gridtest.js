@@ -80,11 +80,19 @@ if (live)
     });
   });
 
+/**
+ *
+ * @param {{}} config
+ * @param {String} sideOfGrid
+ * @param {Element[]} gridColumns
+ * @param {Element} elementToSide
+ */
 function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
   console.log('called');
+  console.log(config, sideOfGrid, gridColumns, elementToSide);
   const HTMLPlacement = {
     right: 'afterend',
-    left: 'beforebegin',
+    left: 'afterend',
     first: 'afterbegin',
   };
 
@@ -104,13 +112,28 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
   if (insertionPoint.classList.contains('row')) {
     placement = HTMLPlacement['first'];
   }
+  console.log(
+    'ip:',
+    insertionPoint,
+    'ps:',
+    elementToSide.previousElementSibling
+  );
+
+  const elementToSideColSizes = determineColSizes(elementToSide.classList);
+  const maxColumnSize = 12;
 
   const HTML = /*html*/ `
     <div class="cc_wrapper--auto-grid">
       ${elementToSide.outerHTML}
-      <div class="col cc_auto-grid col-lg-${config.parentColumnSize}">${gridColumnsOuterHTML}</div>
+      <div class="
+        col cc_auto-grid
+        col-sm-${maxColumnSize - elementToSideColSizes[0]}
+        col-md-${maxColumnSize - elementToSideColSizes[1]}
+        col-lg-${maxColumnSize - elementToSideColSizes[2]}
+      ">${gridColumnsOuterHTML}</div>
     </div>
   `;
+  console.log(`*******\n${HTML}\n*******`);
 
   const styles = /*html*/ `
     <style id="custom_auto-grid">
@@ -118,6 +141,8 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
       display: flex;
       justify-content: flex-start;
       height: 40rem;
+      max-width: 73.125rem;
+      margin: 0 auto;
     }
 
     .cc_auto-grid {
@@ -151,22 +176,22 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
 		display: block;
 	}
 
-    @media screen and (max-width: 1199px) {
-    }
+  @media screen and (max-width: 1199px) {
+  }
 
-    @media screen and (max-width: 767px) {
-	  .cc_wrapper--auto-grid {
-	    flex-direction: column;
-		height: 100%;
-	  }
-    
-      .cc_auto-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(${gridColumns.length}, 1fr);
-        width: 100% !important;
-      }
+  @media screen and (max-width: 767px) {
+    .cc_wrapper--auto-grid {
+      flex-direction: column;
+    height: 100%;
     }
-    </style>
+  
+    .cc_auto-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(${gridColumns.length}, 1fr);
+      width: 100% !important;
+    }
+  }
+  </style>
   `;
 
   if (config.gridsCreated === 0) {
@@ -176,4 +201,41 @@ function createGridOnSide(config, sideOfGrid, gridColumns, elementToSide) {
   insertionPoint.insertAdjacentHTML(placement, HTML);
 
   config.gridsCreated++;
+}
+
+/**
+ *
+ * @param {DOMTokenList} classList
+ */
+function determineColSizes(classList) {
+  const sizes = [];
+
+  for (let sm = 1; sm < 13; sm++) {
+    if (classList.contains(`col-sm-${sm}`)) {
+      sizes.push(sm);
+      console.log(`pushing ${sm}`);
+      console.log(sizes);
+      break;
+    }
+  }
+
+  for (let md = 1; md < 13; md++) {
+    if (classList.contains(`col-md-${md}`)) {
+      sizes.push(md);
+      console.log(`pushing ${md}`);
+      console.log(sizes);
+      break;
+    }
+  }
+
+  for (let lg = 1; lg < 13; lg++) {
+    if (classList.contains(`col-lg-${lg}`)) {
+      sizes.push(lg);
+      console.log(`pushing ${lg}`);
+      console.log(sizes);
+      break;
+    }
+  }
+
+  return sizes;
 }
