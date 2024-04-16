@@ -22,15 +22,9 @@ if (live(true)) { // Bytt true ut med false hvis du vil "skru av" scriptet. Løn
             const startIndex = p.textContent.indexOf(flyttTekst);
             const endIndex = startIndex + flyttTekst.length;
 
-            const paragraphNumber =
-              p.textContent.substring(endIndex, p.textContent.length) * 1;
+            const paragraphNumber = p.textContent.substring(endIndex, p.textContent.length) * 1;
 
-            items[itemIndex - 1]
-              .querySelectorAll('p:not(.itemTitle)')
-              [paragraphNumber - 1].insertAdjacentHTML(
-                'afterend',
-                imgOuterHTML
-              );
+            items[itemIndex - 1].querySelectorAll('p:not(.itemTitle)')[paragraphNumber - 1].insertAdjacentHTML('afterend', imgOuterHTML);
 
             itemsToRemove.push(item);
 
