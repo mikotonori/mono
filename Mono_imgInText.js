@@ -1,15 +1,13 @@
-const live = state => state;
+const live = state => state; // OBS Skal bare være én av disse i hele global HTML
 
-if (live(false)) {
+if (live(true)) { // Bytt true ut med false hvis du vil "skru av" scriptet. Lønner seg også med en refresh!
   document.addEventListener('DOMContentLoaded', () => {
     const textModules = document.querySelectorAll('.module.text');
 
     const target = 'sett-inn-bilde-her';
 
     textModules.forEach(textModule => {
-      const imgsToPutInText = textModule
-        .closest('.col')
-        .querySelectorAll('img');
+      const imgsToPutInText = textModule.closest('.col').querySelectorAll('img');
       let nextImgIndex = 0;
 
       const paragraphs = textModule.querySelectorAll('p');
@@ -33,9 +31,5 @@ if (live(false)) {
         p.remove();
       });
     });
-  });
-} else {
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log(document.querySelectorAll('.text.module'));
   });
 }
