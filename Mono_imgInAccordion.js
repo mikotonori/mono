@@ -1,6 +1,6 @@
 const live = state => state; // OBS Skal bare være én av disse i hele global HTML
 
-if (live(true)) {
+if (live(true)) { // Bytt true ut med false hvis du vil "skru av" scriptet. Lønner seg også med en refresh!
   document.addEventListener('DOMContentLoaded', () => {
     const accordions = document.querySelectorAll('.module.cc_img-in-accordion');
 
