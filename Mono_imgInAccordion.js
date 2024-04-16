@@ -1,4 +1,4 @@
-const live = state => state;
+const live = state => state; // OBS Skal bare være én av disse i hele global HTML
 
 if (live(true)) {
   document.addEventListener('DOMContentLoaded', () => {
