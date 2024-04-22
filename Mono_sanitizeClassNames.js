@@ -1,3 +1,13 @@
+/*
+Siden Mono ikke fjerner custom-klasser du legger til,
+og siden dette kan ha noe å si for scripting noen ganger,
+kan du bruke dette scriptet for å fjerne klasser som ikke skal være på siden/som ikke skal være på visse elementer.
+
+OBS: <script></script> må omkranse koden hvis den legges inn i HTML!
+
+P.S. ikke legg til '.' foran klassenavnene, for dette gjøres allerede i scriptet :)
+*/
+
 document.addEventListener('DOMContentLoaded', () => {
   //---------------------------------------------------------
   const listOfClassNamesToRemove = [
