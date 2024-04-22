@@ -1,18 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+  //---------------------------------------------------------
   const listOfClassNamesToRemove = [
     'klasser',
     'du-vil-fjerne',
     'fra-alle-elementer',
     'på-siden',
   ];
+  //---------------------------------------------------------
 
   listOfClassNamesToRemove.forEach(className => {
     const allElementsWithClass = document.querySelectorAll(`.${className}`);
     allElementsWithClass.forEach(el => el.classList.remove(className));
   });
 
+  //---------------------------------------------------------
   const classRemoveMap = {
-    etKlasseNavn: 'klasse-som-fjernes',
+    etKlasseNavn: 'klasse-som-fjernes-fra-elementer-med-klassen-etKlasseNavn',
     etAnnetKlasseNavn: [
       'klasser',
       'du-vil',
@@ -20,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'med-klassen-etAnnetKlasseNavn',
     ],
   };
+  //---------------------------------------------------------
 
   const removalSources = Object.keys(classRemoveMap);
 
