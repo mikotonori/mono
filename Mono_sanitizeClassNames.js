@@ -1,6 +1,6 @@
 /*
 Siden Mono ikke fjerner custom-klasser du legger til,
-og siden dette kan ha noe å si for scripting noen ganger,
+og siden dette kan ha noe å si for scripting/styling noen ganger,
 kan du bruke dette scriptet for å fjerne klasser som ikke skal være på siden/som ikke skal være på visse elementer.
 
 OBS: <script></script> må omkranse koden hvis den legges inn i HTML!
