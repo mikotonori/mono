@@ -2,6 +2,8 @@
 Gir deg muligheten til å injisere styling direkte inn i elementer i HTML.
 Dette gir høyere spesifisitet, og dermed høyere sjanse for at stylingen du legger til,
 faktisk skinner gjennom til nettsiden.
+
+OBS: <script></script> må omkranse koden hvis den legges inn i HTML!
 */
 
 document.addEventListener('DOMContentLoaded', () => {
