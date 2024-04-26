@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const elMap = [
     [
-      '#CSS .selector ~ skrives + her',
+      '#CSS .selector ~ .skrives + .her',
       [
         'rule: value;',
         'rule: value;',
