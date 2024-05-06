@@ -28,6 +28,14 @@ P.S. Når det blir nevnt "faktiske" lenker, så er dette ment å ekskludere "wra
 */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const pwd = window.parent.document;
+  const editor = pwd.querySelector('[class*="editor"]') !== null;
+
+  if (editor) {
+    console.log('Editor mode: custom script not executed.');
+    return;
+  }
+
   document.querySelectorAll('.cc_clickable').forEach(clickable => {
     let linkLabel;
 
