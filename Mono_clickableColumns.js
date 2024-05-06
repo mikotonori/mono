@@ -15,18 +15,11 @@ Lar deg bruke en kolonne med klassen "cc_clickable" som "knapp". Tar også hensy
 
 (5) CSS-styling blir lagt til i HTML-dokumentets head-element, for at en skal få håndpeker når man beveger musen over kolonnen(e) med .cc_clickable
 
-Anbefalt CSS for kolonne for å tydelig vise at denne er klikkbar og fungerer som en link/knapp:
-
-.cc_clickable, .cc_clickable * {
-  cursor: pointer;
-}
-
-Hvis man kun vil bruke kolonnen som en lenke, og ikke ha en synlig lenke, kan man bruke denne CSS-koden for å visuelt fjerne alle (faktiske) lenker uten å miste lenke-funksjonalitet:
+Hvis man kun vil bruke kolonnen som en lenke/knapp, og ikke ha en synlig lenke, kan man bruke denne CSS-koden for å visuelt fjerne alle (faktiske) lenker uten å miste lenke-funksjonalitet:
 
 .cc_clickable a:not([onclick="return false"]) {
 	display: none;
 }
-
 (*) Setter aria-hidden="true" på lenken hvis CSS rett over blir brukt, eller ellers når faktiske lenker i kolonner med .cc_clickable har display satt til 'none'.
 
 OBS: <script></script> skal omkranse koden hvis brukt i HTML
