@@ -20,7 +20,7 @@ Hvis man kun vil bruke kolonnen som en lenke/knapp, og ikke ha en synlig lenke, 
 .cc_clickable a:not([onclick="return false"]) {
 	display: none;
 }
-(*) Setter aria-hidden="true" på lenken hvis CSS rett over blir brukt, eller ellers når faktiske lenker i kolonner med .cc_clickable har display satt til 'none'.
+(*) Setter aria-hidden="true" på lenken hvis CSS rett over blir brukt, og ellers når faktiske lenker i kolonner med .cc_clickable har display satt til 'none'.
 
 OBS: <script></script> skal omkranse koden hvis brukt i HTML
 
