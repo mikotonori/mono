@@ -2,8 +2,6 @@
 
 Bruk dette scriptet til å få en oversikt over alle tekstrørrelsene på siden.
 
-"Arvede" størrelser vises som 'undefined'.
-
 Hvis du vil legge til andre teksttyper enn de standarde,
 så må du legge til id'en til typen i textTypes under.
 
@@ -86,8 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sizes = {
       pc: findFontSize(pcStyle),
-      tablet: findFontSize(tabletStyle),
-      phone: findFontSize(phoneStyle),
+      tablet: findFontSize(tabletStyle ?? 'Arvet'),
+      phone: findFontSize(phoneStyle ?? 'Arvet'),
     };
 
     fontSizes[properTextTypes[type] ?? type] = sizes;
