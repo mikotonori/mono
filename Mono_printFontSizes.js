@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sizes = {
       pc: findFontSize(pcStyle),
-      tablet: findFontSize(tabletStyle ?? 'Arvet'),
-      phone: findFontSize(phoneStyle ?? 'Arvet'),
+      tablet: findFontSize(tabletStyle) ?? 'Arvet',
+      phone: findFontSize(phoneStyle) ?? 'Arvet',
     };
 
     fontSizes[properTextTypes[type] ?? type] = sizes;
