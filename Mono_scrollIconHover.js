@@ -42,4 +42,11 @@ document.addEventListener('DOMContentLoaded', function(e) {
   scrollIcon.addEventListener('blur', function(e) {
     scrollIcon.classList.remove('scrollIconFocus');
   });
+
+  document.documentElement.addEventListener('click', function(e) {
+    if (e.target.classList.contains('scrollIconHover') || e.target.querySelector('.scrollIconHover')) return;
+
+    const hoverScrollIcon = document.querySelector('.scrollIconHover');
+    if (hoverScrollIcon) hoverScrollIcon.classList.remove('.scrollIconHover');
+  });
 });
