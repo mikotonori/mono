@@ -9,6 +9,15 @@ CSS for å stille på scrolleknappens pilikon når musa går over den:
 	color: #101010 !important;
 }
 
+!!! OBS OBS OBS: !!!
+Bruk denne CSSen (med aktuell farge) for å sette farge på pilikon til den vanlige (den uten hover),
+for når man bruker mobil/tablet (.scrollIconHover fjernes ikke her hvis man ikke først trykker på skjermen,
+og dermed kan kontrastfeil forårsakes):
+
+.scrollIconHover:not(:focus):not(:hover)::before {
+  color: #020B13 !important;
+}
+
 CSS for å stille på scrolleknappen og dens pilikon når de fokuseres:
 
 .scrollIconFocus {
