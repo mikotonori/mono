@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'gap: 5px;',
     'justify-content: center;',
     'align-items: center;',
-    'z-index: 100000;',
+    'z-index: 7;',
     'transition: gap 0.3s ease;',
   ];
 
@@ -218,9 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const listLinkScript = `${iFrameDocSelector}.querySelector('nav [href^="${linkHref}"]').click();`;
       listLink.setAttribute('onclick', listLinkScript);
       listLink.setAttribute('style', styleListLink);
-      listLink.textContent = `${
-        home ? 'Home' : linkHref[1].toUpperCase() + linkHref.slice(2)
-      }`;
+      listLink.textContent = link.textContent;
 
       linkItem.insertAdjacentElement('afterbegin', listLink);
       navList.insertAdjacentElement('beforeend', linkItem);
@@ -238,10 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const listLinkScript = `${iFrameDocSelector}.querySelector('.row .rowanchor[id="${linkID}"]').scrollIntoView({behavior:'smooth'});`;
       listLink.setAttribute('onclick', listLinkScript);
       listLink.setAttribute('style', styleListLink);
-      listLink.textContent = `${linkID.slice(0, 1).toUpperCase()}${linkID.slice(
-        1
-      )}`;
-      if (!listLink.textContent.includes('?tool')) {
+      listLink.textContent = link.textContent;
+      if (!linkID.includes('?tool')) {
         linkItem.insertAdjacentElement('afterbegin', listLink);
         navList.insertAdjacentElement('beforeend', linkItem);
       } else {
@@ -323,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'top: 50%;',
     'right: 25px;',
     'translate: 0 -50%;',
-    'z-index: 100001;',
+    'z-index: 7;',
     'border-radius: 200px;',
     '} ',
     '#edNavToggleButton.edNavToggleButtonActive {',
