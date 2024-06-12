@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   navMenuContainer.setAttribute('id', 'edNavContainer');
   const stylesNavMenuContainer = [
     'position: fixed;',
-    'bottom: 50%;',
+    'bottom: 35%;',
     'right: 45px;',
     'translate: 0 -50%;',
     'display: flex;',
