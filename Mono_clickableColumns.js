@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //----------------------------------------------------------(1)
     const linkQuery = 'a:not([onclick="return false"])';
     const linkToClick = clickable.querySelector(linkQuery);
+    if (!linkToClick) return;
 
     clickable.addEventListener('click', () => linkToClick.click());
 
