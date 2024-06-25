@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const downButton = edDoc.querySelector('#edNavDownButton');
     const toggleButton = edDoc.querySelector('#edNavToggleButton');
     const navMenuContainer = edDoc.querySelector('#edNavContainer');
+    const scrollUpButton = edDoc.querySelector('#edNavScrollUpButton');
+    const scrollDownButton = edDoc.querySelector('#edNavScrollDownButton');
 
     const closeMenu = () => {
       navMenu.classList.remove('edNavMenuOpen');
@@ -42,6 +44,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     upButton.addEventListener('click', closeMenu);
     downButton.addEventListener('click', closeMenu);
+
+    const scrollByVh = direction => {
+      const vh = document.documentElement.clientHeight;
+      const scrollAmount = vh * 0.8;
+
+      if (direction === 'up') {
+        window.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
+      } else if (direction === 'down') {
+        window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+      }
+    };
+
+    let intervalId;
+
+    const startScrolling = direction => {
+      intervalId = setInterval(() => scrollByVh(direction), 500);
+    };
+
+    const stopScrolling = () => clearInterval(intervalId);
+
+    scrollUpButton.addEventListener('mousedown', () => startScrolling('up'));
+    scrollUpButton.addEventListener('mouseup', stopScrolling);
+    scrollUpButton.addEventListener('mouseleave', stopScrolling);
+    scrollUpButton.addEventListener('click', () => scrollByVh('up'));
+    scrollUpButton.addEventListener('click', closeMenu);
+    edDoc.addEventListener('keydown', function (e) {
+      if (e.key !== 'PageUp') {
+        return;
+      }
+
+      scrollByVh('up');
+    });
+    scrollDownButton.addEventListener('click', () => scrollByVh('down'));
+    scrollDownButton.addEventListener('click', closeMenu);
+    scrollDownButton.addEventListener('mousedown', () =>
+      startScrolling('down')
+    );
+    scrollDownButton.addEventListener('mouseup', stopScrolling);
+    scrollDownButton.addEventListener('mouseleave', stopScrolling);
+    edDoc.addEventListener('keydown', function (e) {
+      if (e.key !== 'PageDown') {
+        return;
+      }
+
+      scrollByVh('down');
+    });
 
     toggleButton.addEventListener('click', function (e) {
       let changedInert = false;
@@ -71,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
   navMenuContainer.setAttribute('id', 'edNavContainer');
   const stylesNavMenuContainer = [
     'position: fixed;',
-    'bottom: 35%;',
+    'bottom: 26%;',
     'right: 45px;',
     'translate: 0 -50%;',
     'display: flex;',
@@ -99,12 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   const styleSpan = stylesSpan.reduce(stringStrs, '');
 
-  const iFrameDocSelector =
-    'document.querySelector("iframe").contentWindow.document';
-
-  const upButton = edDoc.createElement('a');
-  upButton.setAttribute('id', 'edNavUpButton');
-  const stylesUpButton = [
+  const stylesScrollButton = [
     'display: block;',
     'background-color: #1C7FA8;',
     'height: 40px;',
@@ -112,43 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'border-radius: 200px;',
     'position: relative;',
   ];
-  const styleUpButton = stylesUpButton.reduce(stringStrs, '');
-  upButton.setAttribute('style', styleUpButton);
-  const upButtonScript = `${iFrameDocSelector}.querySelector('.scrollIcon').click();`;
-  upButton.setAttribute('onclick', upButtonScript);
-  //------------------------------------------//
-  const upButtonSpan = edDoc.createElement('span');
-  upButtonSpan.setAttribute('id', 'edNavUpButtonSpan');
-  upButtonSpan.textContent = '&uarr;';
-  upButtonSpan.setAttribute('style', styleSpan);
-  upButton.insertAdjacentElement('afterbegin', upButtonSpan);
+  const styleScrollButton = stylesScrollButton.reduce(stringStrs, '');
 
-  const downButton = edDoc.createElement('a');
-  downButton.setAttribute('id', 'edNavDownButton');
-  const stylesDownButton = [
-    'display: block;',
-    'background-color: #1C7FA8;',
-    'height: 40px;',
-    'width: 40px;',
-    'border-radius: 200px;',
-    'position: relative;',
-  ];
-  const styleDownButton = stylesDownButton.reduce(stringStrs, '');
-  downButton.setAttribute('style', styleDownButton);
-  const downButtonScript = `${iFrameDocSelector}.querySelector('footer').scrollIntoView({behavior:"smooth"});`;
-  downButton.setAttribute('onclick', downButtonScript);
-  //------------------------------------------//
-  const downButtonSpan = edDoc.createElement('span');
-  downButtonSpan.setAttribute('id', 'edNavDownButtonSpan');
-  downButtonSpan.textContent = '&darr;';
-  downButtonSpan.setAttribute('style', styleSpan);
-  downButton.insertAdjacentElement('afterbegin', downButtonSpan);
-
-  navMenuContainer.insertAdjacentElement('afterbegin', upButton);
-  navMenuContainer.insertAdjacentElement('beforeend', downButton);
-
-  const openNavButton = edDoc.createElement('a');
-  openNavButton.setAttribute('id', 'edNavOpenButton');
   const stylesOpenNavButton = [
     'display: block;',
     'height: 65px;',
@@ -158,29 +166,127 @@ document.addEventListener('DOMContentLoaded', () => {
     'transition: height width 0.4s ease;',
   ];
   const styleOpenNavButton = stylesOpenNavButton.reduce(stringStrs, '');
-  openNavButton.setAttribute('style', styleOpenNavButton);
-  //------------------------------------------//
-  const openNavButtonSpan = edDoc.createElement('span');
-  openNavButtonSpan.setAttribute('id', 'edNavOpenButtonSpan');
-  openNavButtonSpan.textContent = 'NAV';
-  openNavButtonSpan.setAttribute('style', styleSpan);
-  openNavButton.insertAdjacentElement('afterbegin', openNavButtonSpan);
 
-  upButton.insertAdjacentElement('afterend', openNavButton);
-
-  const navMenu = edDoc.createElement('div');
-  navMenu.setAttribute('id', 'edNavMenu');
   const stylesNavMenu = [
     'background-color: #1C7FA8;',
     'border-radius: 15px;',
     'padding: 10px 15px 10px 15px;',
     'position: absolute;',
-    'left: -250px;',
+    'left: -265px;',
     'top: 50%;',
     'translate: 0 -50%;',
     'color: white;',
+    'width: 250px;',
   ];
   const styleNavMenu = stylesNavMenu.reduce(stringStrs, '');
+
+  const stylesListLink = [
+    'display: block;',
+    'border-radius: 200px;',
+    'text-decoration: none;',
+    'font-weight: 500;',
+    'color: white;',
+    'padding: 5px 10px 5px 10px;',
+  ];
+  const styleListLink = stylesListLink.reduce(stringStrs, '');
+
+  const menuStyles = [
+    '#edNavMenu {',
+    'opacity: 0;',
+    'transition: opacity 0.2s ease;',
+    '} ',
+    '.edNavMenuOpen {',
+    'opacity: 1 !important;',
+    '} ',
+    '#edNavContainer:has(.edNavMenuOpen) {',
+    'gap: 15px !important;',
+    '} ',
+    '#edNavContainer:has(.edNavMenuOpen) #edNavOpenButtonSpan {',
+    'display: none !important;',
+    '} ',
+    '#edNavMenu a:hover {',
+    'background-color: #145976;',
+    '} ',
+    '#edNavMenu li:not(:last-child) {',
+    'margin-bottom: 10px;',
+    '} ',
+  ];
+  const menuStyle = menuStyles.reduce(stringStrs, '');
+
+  const toggleButtonStyles = [
+    '#edNavToggleButton {',
+    'height: 10px;',
+    'width: 10px;',
+    'background-color: red;',
+    'font-size: 72px;',
+    'position: fixed;',
+    'top: 50%;',
+    'right: 25px;',
+    'translate: 0 -50%;',
+    'z-index: 7;',
+    'border-radius: 200px;',
+    '} ',
+    '#edNavToggleButton.edNavToggleButtonActive {',
+    'background-color: forestgreen;',
+    '} ',
+    '.edNavHidden {',
+    'display: none !important;',
+    '} ',
+  ];
+  const toggleButtonStyle = toggleButtonStyles.reduce(stringStrs, '');
+
+  const iFrameDocSelector =
+    'document.querySelector("iframe").contentWindow.document';
+
+  const makeButton = config => {
+    const newButton = edDoc.createElement('a');
+    newButton.setAttribute('id', config.id);
+    newButton.setAttribute('style', config.style);
+    if (config.script) newButton.setAttribute('onclick', config.script);
+    config.insertEl.insertAdjacentElement(config.insertPosition, newButton);
+
+    const newButtonSpan = edDoc.createElement('span');
+    newButtonSpan.setAttribute('id', config.id + 'Span');
+    newButtonSpan.setAttribute('style', styleSpan);
+    newButtonSpan.textContent = config.spanText;
+    newButton.insertAdjacentElement('afterbegin', newButtonSpan);
+
+    return newButton;
+  };
+
+  const upButtonScript = `${iFrameDocSelector}.querySelector('.scrollIcon').click();`;
+  const upButtonConfig = {
+    id: 'edNavUpButton',
+    style: styleScrollButton,
+    insertEl: navMenuContainer,
+    insertPosition: 'afterbegin',
+    spanText: '&uarr;',
+    script: upButtonScript,
+  };
+  const upButton = makeButton(upButtonConfig);
+
+  const downButtonScript = `${iFrameDocSelector}.querySelector('footer').scrollIntoView({behavior:"smooth"});`;
+  const downButtonConfig = {
+    id: 'edNavDownButton',
+    style: styleScrollButton,
+    insertEl: navMenuContainer,
+    insertPosition: 'beforeend',
+    spanText: '&darr;',
+    script: downButtonScript,
+  };
+  const downButton = makeButton(downButtonConfig);
+
+  const openNavButtonConfig = {
+    id: 'edNavOpenButton',
+    style: styleOpenNavButton,
+    insertEl: upButton,
+    insertPosition: 'afterend',
+    spanText: 'NAV',
+  };
+  const openNavButton = makeButton(openNavButtonConfig);
+
+  const navMenu = edDoc.createElement('div');
+  navMenu.setAttribute('id', 'edNavMenu');
   navMenu.setAttribute('style', styleNavMenu);
   navMenu.setAttribute('inert', '');
   //------------------------------------------//
@@ -191,18 +297,11 @@ document.addEventListener('DOMContentLoaded', () => {
   //------------------------------------------//
   const querySiteNavLinks = 'nav a:not(.closeBtn)';
   const siteNavLinks = document.querySelectorAll(querySiteNavLinks);
+
   const startpakke = Array.from(siteNavLinks).some(a => {
     return a.getAttribute('href').includes('#');
   });
-  const stylesListLink = [
-    'display: block;',
-    'border-radius: 200px;',
-    'text-decoration: none;',
-    'font-weight: 500;',
-    'color: white;',
-    'padding: 5px 10px 5px 10px;',
-  ];
-  const styleListLink = stylesListLink.reduce(stringStrs, '');
+
   if (!startpakke) {
     siteNavLinks.forEach((link, i, arr) => {
       const linkItem = edDoc.createElement('li');
@@ -254,28 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const menuStyleEl = edDoc.createElement('style');
   menuStyleEl.setAttribute('id', 'custom-styles_edNavMenu');
-  const menuStyles = [
-    '#edNavMenu {',
-    'opacity: 0;',
-    'transition: opacity 0.2s ease;',
-    '} ',
-    '.edNavMenuOpen {',
-    'opacity: 1 !important;',
-    '} ',
-    '#edNavContainer:has(.edNavMenuOpen) {',
-    'gap: 15px !important;',
-    '} ',
-    '#edNavContainer:has(.edNavMenuOpen) #edNavOpenButtonSpan {',
-    'display: none !important;',
-    '} ',
-    '#edNavMenu a:hover {',
-    'background-color: #145976;',
-    '} ',
-    '#edNavMenu li:not(:last-child) {',
-    'margin-bottom: 10px;',
-    '} ',
-  ];
-  const menuStyle = menuStyles.reduce(stringStrs, '');
+
   menuStyleEl.textContent = menuStyle;
 
   navMenuContainer.insertAdjacentElement('beforebegin', menuStyleEl);
@@ -303,33 +381,74 @@ document.addEventListener('DOMContentLoaded', () => {
   upButton.addEventListener('click', closeMenu);
   downButton.addEventListener('click', closeMenu);
 
+  const scrollUpButtonConfig = {
+    id: 'edNavScrollUpButton',
+    style: styleScrollButton,
+    insertEl: upButton,
+    insertPosition: 'afterend',
+    spanText: '︽',
+  };
+  const scrollUpButton = makeButton(scrollUpButtonConfig);
+
+  const scrollDownButtonConfig = {
+    id: 'edNavScrollDownButton',
+    style: styleScrollButton,
+    insertEl: downButton,
+    insertPosition: 'beforebegin',
+    spanText: '︾',
+  };
+  const scrollDownButton = makeButton(scrollDownButtonConfig);
+
+  const scrollByVh = direction => {
+    const vh = document.documentElement.clientHeight;
+    const scrollAmount = vh * 0.8;
+
+    if (direction === 'up') {
+      window.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
+    } else if (direction === 'down') {
+      window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  let intervalId;
+
+  const startScrolling = direction => {
+    intervalId = setInterval(() => scrollByVh(direction), 500);
+  };
+
+  const stopScrolling = () => clearInterval(intervalId);
+
+  scrollUpButton.addEventListener('click', () => scrollByVh('up'));
+  scrollUpButton.addEventListener('mousedown', () => startScrolling('up'));
+  scrollUpButton.addEventListener('mouseup', stopScrolling);
+  scrollUpButton.addEventListener('mouseleave', stopScrolling);
+  edDoc.addEventListener('keydown', function (e) {
+    if (e.key !== 'PageUp') {
+      return;
+    }
+
+    scrollByVh('up');
+  });
+  scrollUpButton.addEventListener('click', closeMenu);
+  scrollDownButton.addEventListener('click', () => scrollByVh('down'));
+  scrollDownButton.addEventListener('mousedown', () => startScrolling('down'));
+  scrollDownButton.addEventListener('mouseup', stopScrolling);
+  scrollDownButton.addEventListener('mouseleave', stopScrolling);
+  edDoc.addEventListener('keydown', function (e) {
+    if (e.key !== 'PageDown') {
+      return;
+    }
+
+    scrollByVh('down');
+  });
+  scrollDownButton.addEventListener('click', closeMenu);
+
   const toggleButton = edDoc.createElement('a');
   toggleButton.setAttribute('id', 'edNavToggleButton');
   toggleButton.classList.add('edNavToggleButtonActive');
   toggleButton.textContent = '&nbsp;';
   const toggleButtonStyleEl = edDoc.createElement('style');
   toggleButtonStyleEl.setAttribute('id', 'custom-style_edNavToggle');
-  const toggleButtonStyles = [
-    '#edNavToggleButton {',
-    'height: 10px;',
-    'width: 10px;',
-    'background-color: red;',
-    'font-size: 72px;',
-    'position: fixed;',
-    'top: 50%;',
-    'right: 25px;',
-    'translate: 0 -50%;',
-    'z-index: 7;',
-    'border-radius: 200px;',
-    '} ',
-    '#edNavToggleButton.edNavToggleButtonActive {',
-    'background-color: forestgreen;',
-    '} ',
-    '.edNavHidden {',
-    'display: none !important;',
-    '} ',
-  ];
-  const toggleButtonStyle = toggleButtonStyles.reduce(stringStrs, '');
   toggleButtonStyleEl.textContent = toggleButtonStyle;
   navMenuContainer.insertAdjacentElement('beforebegin', toggleButtonStyleEl);
   navMenuContainer.insertAdjacentElement('beforebegin', toggleButton);
