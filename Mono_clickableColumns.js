@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.cc_clickable').forEach(clickable => {
     let linkLabel;
 
-    //----------------------------------------------------------(1)
+    /*----------------------------------------------------------(1)*/
     const linkQuery = 'a:not([onclick="return false"])';
     const linkToClick = clickable.querySelector(linkQuery);
     if (!linkToClick) return;
 
     clickable.addEventListener('click', () => linkToClick.click());
 
-    //----------------------------------------------------------(2)
+    /*----------------------------------------------------------(2)*/
     if (linkToClick.hasAttribute('title')) {
       linkLabel = linkToClick.getAttribute('title');
     } else if (linkToClick.textContent !== '') {
@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
     clickable.setAttribute('aria-label', linkLabel);
     clickable.setAttribute('title', linkLabel);
 
-    //----------------------------------------------------------(3)
+    /*----------------------------------------------------------(3)*/
     clickable.setAttribute('role', 'button');
 
-    //----------------------------------------------------------(4)
+    /*----------------------------------------------------------(4)*/
     clickable.setAttribute('tabindex', '0');
 
     clickable.addEventListener('keydown', function (e) {
@@ -71,13 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    //----------------------------------------------------------(*)
+    /*----------------------------------------------------------(*)*/
     if (window.getComputedStyle(linkToClick).display === 'none') {
       linkToClick.setAttribute('aria-hidden', 'true');
     }
   });
 
-  //----------------------------------------------------------(5)
+  /*----------------------------------------------------------(5)*/
   const cursorStyle = document.createElement('style');
   cursorStyle.setAttribute('id', 'custom-style_clickable-columns');
 
