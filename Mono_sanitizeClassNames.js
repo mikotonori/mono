@@ -9,21 +9,21 @@ P.S. ikke legg til '.' foran klassenavnene, for dette gjøres allerede i scripte
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-  //---------------Fyll inn klassenavn her-------------------
+  /*---------------Fyll inn klassenavn her-------------------*/
   const listOfClassNamesToRemove = [
     'klasser',
     'du-vil-fjerne',
     'fra-alle-elementer',
     'på-siden',
   ];
-  //---------------------------------------------------------
+  /*---------------------------------------------------------*/
 
   listOfClassNamesToRemove.forEach(className => {
     const allElementsWithClass = document.querySelectorAll(`.${className}`);
     allElementsWithClass.forEach(el => el.classList.remove(className));
   });
 
-  //---------------Fyll inn klassenavn her-------------------
+  /*---------------Fyll inn klassenavn her-------------------*/
   const classRemoveMap = {
     etKlasseNavn: 'klasse-som-fjernes-fra-elementer-med-klassen-etKlasseNavn',
     etAnnetKlasseNavn: [
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'med-klassen-etAnnetKlasseNavn',
     ],
   };
-  //---------------------------------------------------------
+  /*---------------------------------------------------------*/
 
   const removalSources = Object.keys(classRemoveMap);
 
