@@ -1,7 +1,14 @@
-const live = state => state; // OBS Skal bare være én av disse i hele global HTML
+const live = state => state; /* OBS Skal bare være én av disse i hele global HTML */
 
-if (live(true)) { // Bytt true ut med false hvis du vil "skru av" scriptet. Lønner seg også med en refresh!
+if (live(true)) { /* Bytt true ut med false hvis du vil "skru av" scriptet. Lønner seg også med en refresh! */
   document.addEventListener('DOMContentLoaded', () => {
+    const edDoc = window.parent.document;
+    const editor = edDoc.querySelector('[class*="editor"]') !== null;
+  
+    if (editor) {
+      return;
+    }
+
     const accordions = document.querySelectorAll('.module.cc_img-in-accordion');
 
     const flyttTekst = 'flytt-bilde-til-';
