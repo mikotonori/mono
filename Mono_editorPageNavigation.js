@@ -311,10 +311,14 @@ document.addEventListener('DOMContentLoaded', () => {
       //------------------------------------------//
       const listLink = edDoc.createElement('a');
       listLink.setAttribute('id', `edNavListLink-${i + 1}`);
-      let linkHref = link.getAttribute('href');
+      let linkHref = link.getAttribute('href') === '/' ? '/' : '#';
       if (linkHref.indexOf('?tool')) linkHref = linkHref.slice(0, -7);
       const home = linkHref === '/';
-      const listLinkScript = `${iFrameDocSelector}.querySelector('nav [href^="${linkHref}"]').click();`;
+      const listLinkScript = `(() => {
+  window.parent.document.querySelectorAll('.selectorPagesList .mds-button').forEach(btn => { 
+    if (btn.textContent.includes('${link.textContent}')) btn.click(); 
+  });
+})();`;
       listLink.setAttribute('onclick', listLinkScript);
       listLink.setAttribute('style', styleListLink);
       listLink.textContent = link.textContent;
