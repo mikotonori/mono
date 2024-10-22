@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const upButton = makeButton(upButtonConfig);
 
-  const downButtonScript = `${iFrameDocSelector}.querySelector('footer').scrollIntoView({behavior:"smooth"});`;
+  const downButtonScript = `${iFrameDocSelector}.querySelector('[role="main"] .row:last-child').scrollIntoView({behavior:"smooth"});`;
   const downButtonConfig = {
     id: 'edNavDownButton',
     style: styleScrollButton,
