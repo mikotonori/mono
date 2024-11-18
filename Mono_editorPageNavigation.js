@@ -2,6 +2,12 @@
 Legg dette scriptet inn i global HTML for å få knapper til å navigere seg rundt på siden i editor.
 
 OBS: husk å refresh'e siden for at scriptet skal kjøre etter å ha lagret.
+
+Home: Hopp til toppen
+PageUp: Hopp et hakk oppover
+PageDown: Hopp et hakk nedover
+End: Hopp til bunnen
+
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -264,6 +270,13 @@ document.addEventListener('DOMContentLoaded', () => {
     script: upButtonScript,
   };
   const upButton = makeButton(upButtonConfig);
+  edDoc.documentElement.addEventListener('keydown', function (e) {
+    if (e.key !== 'Home') {
+      return;
+    }
+
+    upButton.click();
+  });
 
   const downButtonScript = `${iFrameDocSelector}.querySelector('[role="main"] .row:last-child').scrollIntoView({behavior:"smooth"});`;
   const downButtonConfig = {
@@ -275,6 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
     script: downButtonScript,
   };
   const downButton = makeButton(downButtonConfig);
+  edDoc.documentElement.addEventListener('keydown', function (e) {
+    if (e.key !== 'End') {
+      return;
+    }
+
+    downButton.click();
+  });
 
   const openNavButtonConfig = {
     id: 'edNavOpenButton',
