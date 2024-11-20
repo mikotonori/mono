@@ -271,14 +271,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const upButton = makeButton(upButtonConfig);
   edDoc.documentElement.addEventListener('keydown', function (e) {
-    if (e.key !== 'Home') {
+    if (e.key !== 'Home' || edDoc.querySelector('.fileManager')) {
       return;
     }
 
     upButton.click();
   });
 
-  const downButtonScript = `${iFrameDocSelector}.querySelector('[role="main"] .row:last-child').scrollIntoView({behavior:"smooth"});`;
+  const downButtonScript = `${iFrameDocSelector}.querySelector('[role="main"] .row:not(.rowGroup > .row):last-child').scrollIntoView({behavior:"smooth"});`;
   const downButtonConfig = {
     id: 'edNavDownButton',
     style: styleScrollButton,
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const downButton = makeButton(downButtonConfig);
   edDoc.documentElement.addEventListener('keydown', function (e) {
-    if (e.key !== 'End') {
+    if (e.key !== 'End' || edDoc.querySelector('.fileManager')) {
       return;
     }
 
