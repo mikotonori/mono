@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const upButton = makeButton(upButtonConfig);
   edDoc.documentElement.addEventListener('keydown', function (e) {
-    if (e.key !== 'Home' || edDoc.querySelector('.fileManager')) {
+    if (e.key !== 'Home' || edDoc.querySelector('.fileManager') || edDoc.querySelector('.v--modal-overlay')) {
       return;
     }
 
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const downButton = makeButton(downButtonConfig);
   edDoc.documentElement.addEventListener('keydown', function (e) {
-    if (e.key !== 'End' || edDoc.querySelector('.fileManager')) {
+    if (e.key !== 'End' || edDoc.querySelector('.fileManager') || edDoc.querySelector('.v--modal-overlay')) {
       return;
     }
 
